@@ -9,8 +9,8 @@ import base64
 
 app = Flask(__name__)
 
-access_key = 'AKIAJ4MAJNZB4PV3I4RQ'
-secret_access_key = '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'
+access_key = 'accesskey'
+secret_access_key = 'secretaccesskey'
 bucket_name = 'my_bucket_list'
 
 s3 = boto.connect_s3(access_key,secret_access_key)
@@ -21,7 +21,7 @@ def login():
         filename = 'user.txt'
         key = bucket.new_key(filename)
         key.key = filename
-        key.set_contents_from_string(base64.b64encode('vijay:vijay@123\nhema:hema@123'))
+        key.set_contents_from_string(base64.b64encode('vijay:vijay@123\nuser:user@123'))
         return render_template('login.html')
 
 @app.route('/send', methods=['GET','POST'])

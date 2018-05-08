@@ -13,12 +13,12 @@ import time
 
 app = Flask(__name__)
 
-accesskey = 'AKIAJYNS62DCQMXMXOTQ'
-secretaccesskey = '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'
-bucket_name = 'mybuckethema'
-host = 'mydb.chptgni3gne2.us-east-2.rds.amazonaws.com'
-user = 'hema'
-password = 'Cloud6331!'
+accesskey = 'accesskey'
+secretaccesskey = 'secretaccesskey'
+bucket_name = 'mybucket'
+host = 'hostname'
+user = 'user'
+password = 'password'
 dbname = 'mydb'
 
 db = MySQLdb.connect(host=host,user=user,passwd=password,db=dbname)

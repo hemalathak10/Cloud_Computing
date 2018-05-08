@@ -25,12 +25,12 @@ key = 'mPugypH1sWC82zJQ3_He9DmCbheSd29zLDMoUhAQPZo='
 encryptKey = Fernet(key)
 
 #defining the variables required for the connection to the IBM Bluemix
-password='rDk4cj9n})MBrT?Q'
+password='password'
 auth_url='https://identity.open.softlayer.com/v3/'
 auth_version=3
-projId='0f8af2e9fca441f29cfaffb65f1e4f56'
-userId='6693dca2054e4500a6091ca9f9e421aa'
-region='dallas'
+projId='projid'
+userId='userid'
+region='region'
 container_name='ContainerForFiles'
 
 #Connecting to the IBM Bluemix server
@@ -68,6 +68,7 @@ def upload(path):
 	print '\n';
 
 #################################################################################
+#				hema																#
 #																				#
 #	Functionname	:	upload_file												#
 #																				#

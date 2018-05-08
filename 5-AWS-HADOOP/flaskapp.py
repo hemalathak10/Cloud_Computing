@@ -11,12 +11,12 @@ import commands
 
 app = Flask(__name__)
 
-accesskey = 'AKIAJYNS62DCQMXMXOTQ'
-secretaccesskey = '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'
-bucket_name = 'mybuckethema'
-host = 'mydb.chptgni3gne2.us-east-2.rds.amazonaws.com'
-user = 'hema'
-password = 'Cloud6331!'
+accesskey = 'accesskey'
+secretaccesskey = 'secretaccesskey'
+bucket_name = 'mybucket'
+host = 'hostname'
+user = 'user'
+password = 'password'
 dbname = 'mydb'
 
 db = MySQLdb.connect(host=host,user=user,passwd=password,db=dbname)
@@ -51,15 +51,15 @@ def query1():
 @app.route('/query2', methods=['GET','POST'])
 def query2():
 	print 'executing!!'
-	print commands.getoutput('sudo -S -u hduser rm /tmp/hema/part-00000')
+	print commands.getoutput('sudo -S -u hduser rm /tmp/user/part-00000')
 	print commands.getoutput('sudo -S -u hduser /usr/local/hadoop/bin/hadoop dfs -rmr /user/hduser/*')
-	print commands.getoutput('sudo -S -u hduser /usr/local/hadoop/bin/hadoop dfs -copyFromLocal /tmp/hema /user/hduser/hema')
-	command_output = commands.getoutput('sudo -S -u hduser /usr/local/hadoop/bin/hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.6.1.jar -file /home/hduser/flaskapp/mapper.py -mapper "python /home/hduser/flaskapp/mapper.py" -file /home/hduser/flaskapp/reduce.py -reducer "python /home/hduser/flaskapp/reduce.py" -input /user/hduser/hema/* -output /user/hduser/hema/hema-output')
+	print commands.getoutput('sudo -S -u hduser /usr/local/hadoop/bin/hadoop dfs -copyFromLocal /tmp/user /user/hduser/user')
+	command_output = commands.getoutput('sudo -S -u hduser /usr/local/hadoop/bin/hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.6.1.jar -file /home/hduser/flaskapp/mapper.py -mapper "python /home/hduser/flaskapp/mapper.py" -file /home/hduser/flaskapp/reduce.py -reducer "python /home/hduser/flaskapp/reduce.py" -input /user/hduser/user/* -output /user/hduser/user/user-output')
 	print command_output
-	if 'streaming.StreamJob: Output directory: /user/hduser/hema/hema-output' in command_output:
+	if 'streaming.StreamJob: Output directory: /user/hduser/user/user-output' in command_output:
 		print 'Success !!!'
-		print commands.getoutput('sudo -S -u hduser /usr/local/hadoop/bin/hadoop dfs -copyToLocal /user/hduser/hema/hema-output/part-00000 /tmp/hema')
-		fp = open('/tmp/hema/part-00000','r')
+		print commands.getoutput('sudo -S -u hduser /usr/local/hadoop/bin/hadoop dfs -copyToLocal /user/hduser/user/user-output/part-00000 /tmp/user')
+		fp = open('/tmp/user/part-00000','r')
 		contents = fp.readlines()
 		fp.close()
 		return render_template('index.html',msg2='success',content=contents)

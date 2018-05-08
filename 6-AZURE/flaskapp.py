@@ -12,22 +12,22 @@ import os
 
 app = Flask(__name__)
 
-accountname = 'rg1diag351'
-accountkey = 'd90gqj0G+rC8y7CFbFcbEbn6UyYQblGF/pbsrQaEW8jHzlm/JPkubqBkEGi5+blC+TtJo4z3QdrI0e1T8fQjcw=='
+accountname = 'name'
+accountkey = 'key'
 containername = 'container1'
 blobservice = BlockBlobService(account_name=accountname,account_key=accountkey)
 if blobservice:
 	print 'success'
 blobservice.create_container(containername,public_access=PublicAccess.Container)
 
-host = 'hemaserver1.mysql.database.azure.com'
-user = 'server@hemaserver1'
-password = 'Cloudcomputing6331!'
+host = 'hostname'
+user = 'user'
+password = 'password'
 dbname = 'mydb'
 db = MySQLdb.connect(host=host,user=user,passwd=password,db=dbname)
 cur = db.cursor()
 
-client = MongoClient('mongodb://hema:9tlRdmzDR3BinQIVRTHOvsTpyi4mhh6J4LDG7szKoC9PktZAXfALPzivmiB7oB6dler77iREp7IvZe6uo7gvkA==@hema.documents.azure.com:10255/?ssl=true&replicaSet=globaldb')
+client = MongoClient('mongoclient')
 db = client['mongodb-1']
 data1 = db.data
 
@@ -43,7 +43,7 @@ def uploadcsv():
 	cur.execute('commit;')
 	cur.execute('create table mytable1(ingredient varchar(15),qcount integer,foodname varchar(35),foreign key(foodname) references mytable(foodname));')
 	cur.execute('commit;')
-	path = '/home/hema/flaskapp/csvfiles/'
+	path = '/home/user/flaskapp/csvfiles/'
 	for file in os.listdir(path):
 		filename = path + file
 		print filename
@@ -129,7 +129,7 @@ def query3():
 
 @app.route('/query4',methods=['GET','POST'])
 def query4():
-	path = '/home/hema/flaskapp/images/'
+	path = '/home/user/flaskapp/images/'
 	files = os.listdir(path)
 	images = []
 	for file in files:

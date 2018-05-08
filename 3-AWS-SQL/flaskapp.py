@@ -15,13 +15,13 @@ import time
 
 app = Flask(__name__)
 
-accesskey = 'AKIAJYNS62DCQMXMXOTQ'
-secretaccesskey = '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'
-bucket_name = 'mybuckethema'
+accesskey = 'accesskey'
+secretaccesskey = 'secretccesskey'
+bucket_name = 'mybucket'
 
-host = 'mydbinstance.cgsj91ygnbsl.us-east-2.rds.amazonaws.com'
-user = 'hema'
-password = 'Cloud6331!'
+host = 'hostname'
+user = 'user'
+password = 'password'
 dbname = 'mydb'
 farerange = []
 
