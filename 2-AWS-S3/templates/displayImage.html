@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<style>
+			body{background-color: rgb(232, 150, 241)}
+		</style>
+	</head>
+	<body>
+		<form method="POST" action="/displayFromCloud" enctype="multipart/form-data">
+			<div class="form-group">
+				<p>
+					<br></br>
+					<img src={{ filename }} alt="Test Images" style="width:304px;height:228px;">
+					<br></br>					
+				</p>
+			</div>
+		</form>	
+		<form method="POST" action="/home">
+			<br></br>
+			<br></br>
+			<br></br>
+			<input class="btn btn-primary" type="submit" value="Back to Main Page">
+		</form>
+	</body>
+</html>

@@ -1,0 +1,192 @@
+<html>
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<style>
+			body {
+				background-color: rgb(232, 150, 241);
+			}
+
+			table, th, td {
+    				border: 1px solid black;
+    				border-collapse: collapse;
+			}
+			th, td {
+   			 	padding: 15px;
+			}
+		</style>
+		<script>
+			function starttime(){
+				var start = new Date().getTime();
+				return start
+			}
+			function endtime(start){
+				var end = new Date().getTime();
+				return end - start
+			}			
+		</script>
+	</head>
+	<body>
+		<script>
+			start = starttime()					
+		</script>			
+		<h2>Name: Hemalatha Krishnan </h2>
+		<h2>UTA ID: 1001430934</h2>
+		<img src='https://rg1diag351.blob.core.windows.net/container1/hema.jpg' height=250 width=150>
+		<br></br>
+		<form method="POST" action="/uploadcsv">
+			<div class="form-group">
+				<h4>Please click to upload CSV file to AWS ... !!!
+				<input class="btn btn-primary" type="submit" value="UPLOAD CSV">
+				</h4>
+				{% if msg: %}
+					<h4>CSV File loaded successfully to the database ... !!!</h4>
+				{% endif %}
+			</div>
+		</form>
+		<form method="POST" action="/query1">
+			<div class="form-group">
+				<br></br>
+				<input class="btn btn-primary" type="submit" value="SHOW TOTAL NO OF ENTRIES">
+			</div>
+		</form>
+		<table>
+            {% if res1: %}
+                <tr>
+					{% if header: %}
+						<th>{{ header }}</th>
+					{% endif %}
+				</tr>
+				<tr>
+                   	{% for i in range(0,row): %}
+                        {% for j in range(0,col) %}
+                            <td>{{ res1[i][j] }}</td>
+                        {% endfor %}
+                   	{% endfor %}
+                </tr>
+            {% endif %}
+        </table>
+		<form method="POST" action="/query2" enctype="multipart/form-data">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter field name !!
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp
+				<br></br>
+				<input class="btn btn-primary" type="submit" value="SEARCH INGREDIENTS">
+				<br></br>
+			</div>
+		</form>
+		{% if msg2: %}
+			<h2>Execution time: in secs</h2>
+			<h2 id="timedemo"></h2>
+			{% for i in range(msg2): %}
+				<img src="data:image/jpg;base64,{{imagecontent[i]}}" height=300 width=300>
+			{% endfor %}			
+		{% endif %}
+		<form method="POST" action="/query6" enctype="multipart/form-data">
+			<div class="form-group">				
+				<br></br>
+				<input class="btn btn-primary" type="submit" value="LIST TOP 5 INGREDIENTS">
+				<br></br>
+			</div>
+		</form>
+		{% if res6: %}
+			<h2>List</h2>
+			<br></br>
+			<table>
+				<tr>
+					<th>Ingredient</th>
+					<th>Count</th>
+				</tr>
+				{% for i in range(rows)%}
+					<tr>
+						<td>{{ res6[i][1] }}</td>
+						<td>{{ res6[i][0] }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% endif %}
+		<form method="POST" action="/query3">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter query field !!
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp
+				<br></br>
+				<h4>Enter the count !!
+				<input class="btn btn-primary" type="text" name="parameter2"> &nbsp
+				<br></br>
+				<input class="btn btn-primary" type="submit" value="LIST TOP QUERIES">
+			</div>
+		</form>
+		<table>
+		{% if list: %}
+			<h3>List of files:</h3>
+			{% for file in list: %}
+				<h4>{{ file }}</h4>
+			{% endfor %}
+			<h2>Execution time: in secs</h2>
+			<h2 id="timedemo"></h2>
+		{% endif %}
+		<form method="POST" action="/query4">
+			<div class="form-group">				
+				<br></br>
+				<h4>Display all images !!
+				<input class="btn btn-primary" type="submit" value="DISPLAY">
+				</h4>
+			</div>
+		</form>
+		{% if display: %}
+            {% for i in range(0,row): %}
+				<h3>
+				<img src="data:image/jpg;base64,{{display[i]}}" height=300 width=300>
+				{{ files[i] }}</h3>&nbsp&nbsp&nbsp
+			{% endfor %}
+			<h2>Execution time: in secs</h2>
+			<h2 id="timedemo"></h2>
+        {% endif %}
+        <form method="POST" action="/query5">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter weight range: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp
+				<input class="btn btn-primary" type="submit" value="FIND FOODS">
+				</h4>
+			</div>
+		</form>
+		{% if image1: %}
+			<h2>Execution time: in secs</h2>
+			<h2 id="timedemo"></h2>
+			{% for i in range(rows): %}
+				<h3>
+				<img src="data:image/jpg;base64,{{image1[i]}}" height=300 width=300>
+				{{ files[i] }}</h3>&nbsp&nbsp&nbsp
+			{% endfor %}
+		{% endif %}
+		<form method="POST" action="/query7">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter Calories limit: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp
+				<input class="btn btn-primary" type="submit" value="FIND SNACK">
+				</h4>
+			</div>
+		</form>
+		{% if res7: %}
+			<h2>Execution time: in secs</h2>
+			<h2 id="timedemo"></h2>
+			<table>
+				<tr>
+					<th>Item</th>
+				</tr>
+				{% for i in range(rows): %}
+					<tr>
+						<td>{{ res7[i][0] }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% endif %}
+		<script>
+			document.getElementById("timedemo").innerHTML = endtime(start) / 1000			
+		</script>				
+	</body>
+</html>

@@ -1,0 +1,544 @@
+<html>
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<style>
+			body {
+				background-color: rgb(232, 150, 241);
+			}
+
+			table, th, td {
+    				border: 1px solid black;
+    				border-collapse: collapse;
+			}
+			th, td {
+   			 	padding: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>First Name: Hemalatha</h2>
+		<h2>Last Name: Krishnan </h2>		
+		<h2>UTA ID: 1001430934</h2>
+		<h2>Section: 6331 - Cloud Computing - 1PM Batch</h2>
+		<img src='https://s3.amazonaws.com/bucket_list/upload.jpg' height=250 width=150>
+		<br></br>
+		<form method="POST" action="/uploadcsv">
+			<div class="form-group">
+				<h4>Please click to upload CSV file to AWS ... !!!
+				<input class="btn btn-primary" type="submit" value="UPLOAD CSV">
+				</h4>
+				{% if msg: %}
+					<h4>CSV File loaded successfully to the database ... !!!</h4>
+				{% endif %}
+			</div>
+		</form>
+		<form method="POST" action="/query1">
+			<div class="form-group">
+				<br></br>
+				<input class="btn btn-primary" type="submit" value="SHOW TOTAL NO OF ENTRIES">
+			</div>
+		</form>
+		<table>
+                        {% if res1: %}
+                                <tr>
+					{% if header: %}
+						<th>{{ header }}</th>
+					{% endif %}
+				</tr>
+				<tr>
+                                	{% for i in range(0,row): %}
+                                                {% for j in range(0,col) %}
+                                                <td>{{ res1[i][j] }}</td>
+                                                {% endfor %}
+                                	{% endfor %}
+                                </tr>
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query2">
+			<div class="form-group">				
+				<br></br>
+				<input class="btn btn-primary" type="submit" name="chart" value="EXECUTE QUERY 1">
+				</h4>
+			</div>
+		</form>
+		{% if msg2 == "success": %}
+			<h4>Mapper Reduce work completed successfully !!</h4>
+			<br></br>
+			<h4>Map Reduce Output !!</h4>
+			<textarea rows=20 cols=150>
+				{% for data in content: %}
+{{ data }}
+				{% endfor %}
+			</textarea>
+		{% elif msg2 == "failure": %}
+			<h4>Mapper Reduce work failed to complete successfully !!</h4>
+		{% endif %}
+		<!--form method="POST" action="/query2">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter Column Name1:&nbsp
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp
+				<h4>Enter Column Name2:&nbsp
+				<input class="btn btn-primary" type="text" name="parameter2"> &nbsp
+				<h4>Enter No of Clusters:&nbsp
+				<input class="btn btn-primary" type="text" name="parameter3"> &nbsp
+				<h4>&nbsp
+				<input class="btn btn-primary" type="submit" name="chart" value="RENDER PIE CHART">&nbsp
+				<input class="btn btn-primary" type="submit" name="chart" value="RENDER BAR CHART">&nbsp
+				<input class="btn btn-primary" type="submit" name="chart" value="RENDER SCATTER CHART">&nbsp
+				</h4>
+			</div>
+		</form>
+		<form method="POST" action="/query3">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter Height Range: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp		
+				<h4>Enter State Code: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter2"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 2">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if res3: %}
+				{% if c: %}
+					<tr>
+						<th>Count</th>
+					</tr>
+					<tr>
+						<td>{{ c[0][0] }}</td>
+					</tr>
+				{% endif %}
+                                <tr>
+					<th>FirstName</th>
+					<th>LastName</th>
+					<th>City</th>
+					<th>State</th>
+					<th>Height</th>
+				</tr>
+                                {% for i in range(0,row): %}
+					<tr>
+                                                {% for j in range(0,col) %}
+                                                <td>{{ res3[i][j] }}</td>
+                                                {% endfor %}
+                                	</tr>
+                                {% endfor %}
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query4">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter Height Range: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 3">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if time1: %}
+                                <tr>
+					<th>Execution Time in SQL</th>
+				</tr>
+				<tr>
+                        	        <td>{{ time1 }} secs</td>
+                               	</tr>
+                        {% endif %}
+                        {% if c1: %}
+                                <tr>
+					<th>Count</th>
+				</tr>
+				<tr>
+                        	        <td>{{ c1[0][0] }} entries</td>
+                               	</tr>
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query5">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter Height Range: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp		
+				<h4>Enter State Code: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter2"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 4">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if c2: %}
+                                <tr>
+					<th>Count</th>
+				</tr>
+                                <tr>
+					<td>{{c2[0][0]}}</td>
+				</tr>
+                        {% endif %}
+                        {% if time: %}
+                                <tr>
+					<th>Time</th>
+				</tr>
+                                <tr>
+					<td>{{time}}</td>
+				</tr>
+
+                        {% endif %}
+                </table>
+                {% if res5: %}
+			<form method="POST" action="/executequery5" enctype="multipart/form-data">
+				<div class="form-group">
+					<h4>Enter Latitude Value: &nbsp
+					<input class="btn btn-primary" type="text" name="parameter1"> &nbsp		
+					<h4>Enter Age Value: &nbsp
+					<input class="btn btn-primary" type="text" name="parameter2"> &nbsp		
+					<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 5">
+				</div>
+			</form>
+                {% endif %}
+		<form method="POST" action="/query6">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter Height Range: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp		
+				<h4>Enter State Code: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter2"> &nbsp		
+				<h4>Enter Number: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter2"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE SAME QUERY 500 TIMES SQL">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if time3: %}
+                                <tr>
+					<th>Execution Time for 500 queries in SQL</th>
+				</tr>
+				<tr>
+                        	        <td>{{ time3 }} secs</td>
+                               	</tr>
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query7">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter Surname:&nbsp
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 1">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if res7: %}
+                                <tr>
+					<th>FirstName</th>
+					<th>LastName</th>
+					<th>City</th>
+					<th>State</th>
+				</tr>
+                                {% for i in range(0,row): %}
+					<tr>
+                                                {% for j in range(0,col) %}
+                                                <td>{{ res7[i][j] }}</td>
+                                                {% endfor %}
+                                	</tr>
+                                {% endfor %}
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query8">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter Height Range: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp		
+				<h4>Enter State Code: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter2"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 2">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if res8: %}
+				{% if c: %}
+					<tr>
+						<th>Count</th>
+					</tr>
+					<tr>
+						<td>{{ c[0][0] }}</td>
+					</tr>
+				{% endif %}
+                                <tr>
+					<th>FirstName</th>
+					<th>LastName</th>
+					<th>City</th>
+					<th>State</th>
+					<th>Height</th>
+				</tr>
+                                {% for i in range(0,row): %}
+					<tr>
+                                                {% for j in range(0,col) %}
+                                                <td>{{ res8[i][j] }}</td>
+                                                {% endfor %}
+                                	</tr>
+                                {% endfor %}
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query9">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter Latitude Range: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp		
+				<h4>Enter Age Range: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter2"> &nbsp		
+				<h4>Enter Count between (1-1000): &nbsp
+				<input class="btn btn-primary" type="text" name="parameter3"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 3">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if res9: %}
+                                <tr>
+					<th>Execution Time for 500 random queries in SQL</th>
+				</tr>
+				<tr>
+                        	        <td>{{ time1 }} secs</td>
+                               	</tr>
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query10">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter Height Range: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp		
+				<h4>Enter State Code: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter2"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 4">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if c3: %}
+                                <tr>
+					<th>Count</th>
+				</tr>
+                                <tr>
+					<td>{{c3[0][0]}}</td>
+				</tr>
+                        {% endif %}
+                        {% if time1: %}
+                                <tr>
+					<th>Time</th>
+				</tr>
+                                <tr>
+					<td>{{time1}}</td>
+				</tr>
+
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query6">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter Column Name: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter1"> &nbsp		
+				<h4>Enter Parameter Value: &nbsp
+				<input class="btn btn-primary" type="text" name="parameter2"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE SAME QUERY 500 TIMES SQL">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if time3: %}
+                                <tr>
+					<th>Execution Time for 500 queries in SQL</th>
+				</tr>
+				<tr>
+                        	        <td>{{ time3 }} secs</td>
+                               	</tr>
+                        {% endif %}
+                </table>
+		<!--form method="POST" action="/query8">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter the parameter name to be fetched from the database &nbsp
+				<input class="btn btn-primary" type="text" name="parameter"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 8">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if res8: %}
+                                <tr>
+					{% if header: %}
+						<th>{{ header }}</th>
+					{% endif %}
+                                	{% for i in range(0,row): %}
+                                                {% for j in range(0,col) %}
+                                                <th>{{ res8[i][j] }}</th>
+                                                {% endfor %}
+                                	{% endfor %}
+                                </tr>
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query9">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter the parameter name to be fetched from the database &nbsp
+				<input class="btn btn-primary" type="text" name="parameter"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 9">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if res9: %}
+                                <tr>
+					{% if header: %}
+						<th>{{ header }}</th>
+					{% endif %}
+                                	{% for i in range(0,row): %}
+                                                {% for j in range(0,col) %}
+                                                <th>{{ res9[i][j] }}</th>
+                                                {% endfor %}
+                                	{% endfor %}
+                                </tr>
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query10">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter the parameter name to be fetched from the database &nbsp
+				<input class="btn btn-primary" type="text" name="parameter"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 10">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if res10: %}
+                                <tr>
+					{% if header: %}
+						<th>{{ header }}</th>
+					{% endif %}
+                                	{% for i in range(0,row): %}
+                                                {% for j in range(0,col) %}
+                                                <th>{{ res10[i][j] }}</th>
+                                                {% endfor %}
+                                	{% endfor %}
+                                </tr>
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query11">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter the parameter name to be fetched from the database &nbsp
+				<input class="btn btn-primary" type="text" name="parameter"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 11">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if res11: %}
+                                <tr>
+					{% if header: %}
+						<th>{{ header }}</th>
+					{% endif %}
+                                	{% for i in range(0,row): %}
+                                                {% for j in range(0,col) %}
+                                                <th>{{ res11[i][j] }}</th>
+                                                {% endfor %}
+                                	{% endfor %}
+                                </tr>
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query12">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter the parameter name to be fetched from the database &nbsp
+				<input class="btn btn-primary" type="text" name="parameter"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 12">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if res12: %}
+                                <tr>
+					{% if header: %}
+						<th>{{ header }}</th>
+					{% endif %}
+                                	{% for i in range(0,row): %}
+                                                {% for j in range(0,col) %}
+                                                <th>{{ res12[i][j] }}</th>
+                                                {% endfor %}
+                                	{% endfor %}
+                                </tr>
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query13">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter the parameter name to be fetched from the database &nbsp
+				<input class="btn btn-primary" type="text" name="parameter"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 13">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if res13: %}
+                                <tr>
+					{% if header: %}
+						<th>{{ header }}</th>
+					{% endif %}
+                                	{% for i in range(0,row): %}
+                                                {% for j in range(0,col) %}
+                                                <th>{{ res13[i][j] }}</th>
+                                                {% endfor %}
+                                	{% endfor %}
+                                </tr>
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query14">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter the parameter name to be fetched from the database &nbsp
+				<input class="btn btn-primary" type="text" name="parameter"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 14">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if res14: %}
+                                <tr>
+					{% if header: %}
+						<th>{{ header }}</th>
+					{% endif %}
+                                	{% for i in range(0,row): %}
+                                                {% for j in range(0,col) %}
+                                                <th>{{ res14[i][j] }}</th>
+                                                {% endfor %}
+                                	{% endfor %}
+                                </tr>
+                        {% endif %}
+                </table>
+		<form method="POST" action="/query15">
+			<div class="form-group">				
+				<br></br>
+				<h4>Enter the parameter name to be fetched from the database &nbsp
+				<input class="btn btn-primary" type="text" name="parameter"> &nbsp		
+				<input class="btn btn-primary" type="submit" value="EXECUTE QUERY 15">
+				</h4>
+			</div>
+		</form>
+		<table>
+                        {% if res15: %}
+                                <tr>
+					{% if header: %}
+						<th>{{ header }}</th>
+					{% endif %}
+                                	{% for i in range(0,row): %}
+                                                {% for j in range(0,col) %}
+                                                <th>{{ res15[i][j] }}</th>
+                                                {% endfor %}
+                                	{% endfor %}
+                                </tr>
+                        {% endif %}
+                </table-->
+	</body>
+</html>
+

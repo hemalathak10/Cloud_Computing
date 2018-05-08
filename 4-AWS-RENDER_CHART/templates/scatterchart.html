@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+			body {
+				background-color: rgb(232, 150, 241);
+				font: 10px sans-serif;
+			}
+			table, th, td {
+    				border: 1px solid black;
+    				border-collapse: collapse;
+			}
+			th, td {
+   			 	padding: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>Time to cluster and visualize the output: {{ t }} secs</h2>
+		{% block content %} {{chart|safe}} {% endblock %}
+	</body>
+</html>

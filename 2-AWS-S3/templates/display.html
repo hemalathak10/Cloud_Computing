@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<style>
+			body{background-color: rgb(232, 150, 241)}
+		</style>
+	</head>
+	<body>
+		<br></br>
+		<h2>Choose file for display</h2>
+		<br></br>				
+		<form method="POST" action="/displayFromCloud" enctype="multipart/form-data">
+			<div class="form-group">
+				<p>
+					{% if files: %}
+						{% for data in files: %}
+							<input class="btn btn-primary" type="radio" name="filename" value={{data}}>{{ data }}<br>
+						{% endfor %}
+					{% endif %}
+					<br></br>
+					<input class="btn btn-primary" type="submit" value="Display">
+					<br></br>					
+				</p>
+			</div>
+		</form>	
+		{% if msg == 'success':%}
+			<h4>File Downloaded Successfully!!</h4>
+			<br></br>			
+			<h5>File downloaded to Downloads Folder<h5>
+			<br></br>
+		{% endif %}
+		<form method="POST" action="/home">
+			<br></br>
+			<br></br>
+			<br></br>
+			<input class="btn btn-primary" type="submit" value="Back to Main Page">
+		</form>
+	</body>
+</html>

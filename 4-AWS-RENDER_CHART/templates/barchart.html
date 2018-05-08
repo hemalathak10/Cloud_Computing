@@ -1,0 +1,100 @@
+<html>
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<meta charset="utf-8">
+		<style>
+			body {
+				background-color: rgb(232, 150, 241);
+			}
+
+			table, th, td {
+    				border: 1px solid black;
+    				border-collapse: collapse;
+			}
+			th, td {
+   			 	padding: 15px;
+			}
+			.axis {
+				font: 10px sans-serif;
+			}
+			.axis path,
+			.axis line {
+				fill: none;
+				stroke: #000;
+				shape-rendering: crispEdges;
+			}
+			.bar { fill: steelblue; }
+		</style>
+	</head>
+	<body>
+		<h1>&nbsp&nbsp&nbsp&nbsp    BAR CHART</h1>
+		<h2>Time to cluster and visualize the output: {{ t }} secs</h2>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script>			
+			var margin = {top: 20, right: 20, bottom: 30, left: 40},
+			width = 960 - margin.left - margin.right,
+			height = 500 - margin.top - margin.bottom;
+
+			var x = d3.scale
+					  .ordinal()
+					  .rangeRoundBands([0, width], .05);
+			var y = d3.scale
+					  .linear()
+					  .range([height, 0]);
+			var xAxis = d3.svg.axis()
+						  .scale(x)
+						  .orient("bottom")
+						  .ticks(10);
+			var yAxis = d3.svg.axis()
+						  .scale(y)
+						  .orient("left")
+						  .ticks(10);
+			
+			var svg = d3.select("body").append("svg")
+						.attr("width", width + margin.left + margin.right)
+						.attr("height", height + margin.top + margin.bottom)
+						.append("g")
+						.attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+			d3.csv("https://s3.amazonaws.com/mybuckethema/piechart.csv", function(error, data) {
+				if (error) throw error;
+				data.forEach(function(d) {
+					d.yaxis = +d.yaxis;
+				});
+
+				x.domain(data.map(function(d) { return d.xaxis; }));
+				y.domain([0, d3.max(data, function(d) { return d.yaxis; })]);
+				
+				svg.append("g")
+				   .attr("class", "x axis")
+				   .attr("transform", "translate(0," + height + ")")
+				   .call(xAxis)
+				   .selectAll("text")
+				   .style("text-anchor", "end")
+				   .attr("dx", "-.8em")
+				   .attr("dy", "-.55em")
+				   .attr("transform", "rotate(-90)" );
+
+				svg.append("g")
+				   .attr("class", "y axis")
+				   .call(yAxis)
+				   .append("text")
+				   .attr("transform", "rotate(-90)")
+				   .attr("y", 6)
+				   .attr("dy", ".71em")
+				   .style("text-anchor", "end")
+				   .text("Value ($)");
+
+				svg.selectAll(".bar")
+				   .data(data)
+				   .enter().append("rect")
+				   .attr("class", "bar")
+				   .attr("x", function(d) { return x(d.xaxis); })
+				   .attr("width", x.rangeBand())
+				   .attr("y", function(d) { return y(d.yaxis); })
+				   .attr("height", function(d) { return height - y(d.yaxis); });				
+			});
+		</script>
+	</body>
+</html>
